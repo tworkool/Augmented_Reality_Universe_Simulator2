@@ -1,0 +1,36 @@
+.spawn-menu-foldout {
+    font-size: 16px;
+    -unity-text-align: upper-left;
+    color: rgb(255, 255, 255);
+    -unity-font-style: normal;
+}
+
+.spawn-menu-foldout__element {
+    font-size: 14px;
+    margin-left: 15px;
+}
+
+.close-button {
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    font-size: 12px;
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    background-color: rgb(36, 36, 36);
+    border-left-color: rgba(255, 255, 255, 0.31);
+    border-right-color: rgba(255, 255, 255, 0.31);
+    border-top-color: rgba(255, 255, 255, 0.31);
+    border-bottom-color: rgba(255, 255, 255, 0.31);
+    color: rgb(255, 255, 255);
+    flex-shrink: 0;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    width: 30px;
+    height: 30px;
+}
