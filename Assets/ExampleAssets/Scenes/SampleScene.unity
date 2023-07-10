@@ -422,21 +422,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sol
       objectReference: {fileID: 0}
-    - target: {fileID: 313537754627635866, guid: 24476150900860e4ba472cb4402b5e70,
-        type: 3}
-      propertyPath: m_Radius
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1799616368547170911, guid: 24476150900860e4ba472cb4402b5e70,
-        type: 3}
-      propertyPath: m_Range
-      value: 51.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 1799616368547170911, guid: 24476150900860e4ba472cb4402b5e70,
-        type: 3}
-      propertyPath: m_Intensity
-      value: 46.1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -456,10 +441,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 927340605}
     m_Modifications:
-    - target: {fileID: 97048644, guid: ab152f61198d54532ae39108e616ff59, type: 3}
-      propertyPath: m_Mass
-      value: 0.3
-      objectReference: {fileID: 0}
     - target: {fileID: 1856687845478954, guid: ab152f61198d54532ae39108e616ff59, type: 3}
       propertyPath: m_Name
       value: Mercury
@@ -641,10 +622,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 927340605}
     m_Modifications:
-    - target: {fileID: 448933176, guid: 7e4bfb3c6ba1d4bc4ba31d585abdae0f, type: 3}
-      propertyPath: m_Mass
-      value: 1898.2
-      objectReference: {fileID: 0}
     - target: {fileID: 1526814149960808, guid: 7e4bfb3c6ba1d4bc4ba31d585abdae0f, type: 3}
       propertyPath: m_Name
       value: Jupiter
@@ -652,18 +629,6 @@ PrefabInstance:
     - target: {fileID: 4030326048459444, guid: 7e4bfb3c6ba1d4bc4ba31d585abdae0f, type: 3}
       propertyPath: m_RootOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4030326048459444, guid: 7e4bfb3c6ba1d4bc4ba31d585abdae0f, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 4030326048459444, guid: 7e4bfb3c6ba1d4bc4ba31d585abdae0f, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 4030326048459444, guid: 7e4bfb3c6ba1d4bc4ba31d585abdae0f, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 4030326048459444, guid: 7e4bfb3c6ba1d4bc4ba31d585abdae0f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -724,10 +689,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 927340605}
     m_Modifications:
-    - target: {fileID: 349313148, guid: b4201d402613a4464b35c805dafcca62, type: 3}
-      propertyPath: m_Mass
-      value: 568.34
-      objectReference: {fileID: 0}
     - target: {fileID: 1377197793697218, guid: b4201d402613a4464b35c805dafcca62, type: 3}
       propertyPath: m_Name
       value: Saturn
@@ -735,18 +696,6 @@ PrefabInstance:
     - target: {fileID: 4677324220665258, guid: b4201d402613a4464b35c805dafcca62, type: 3}
       propertyPath: m_RootOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4677324220665258, guid: b4201d402613a4464b35c805dafcca62, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 4677324220665258, guid: b4201d402613a4464b35c805dafcca62, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 4677324220665258, guid: b4201d402613a4464b35c805dafcca62, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.65
       objectReference: {fileID: 0}
     - target: {fileID: 4677324220665258, guid: b4201d402613a4464b35c805dafcca62, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1096,18 +1045,6 @@ PrefabInstance:
       value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 4795756332844644, guid: c0aedbee0212d4ba08d6e85a65854d22, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.85
-      objectReference: {fileID: 0}
-    - target: {fileID: 4795756332844644, guid: c0aedbee0212d4ba08d6e85a65854d22, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.8500001
-      objectReference: {fileID: 0}
-    - target: {fileID: 4795756332844644, guid: c0aedbee0212d4ba08d6e85a65854d22, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.8500001
-      objectReference: {fileID: 0}
-    - target: {fileID: 4795756332844644, guid: c0aedbee0212d4ba08d6e85a65854d22, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.27
       objectReference: {fileID: 0}
@@ -1146,31 +1083,6 @@ PrefabInstance:
     - target: {fileID: 4795756332844644, guid: c0aedbee0212d4ba08d6e85a65854d22, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 198496400515357058, guid: c0aedbee0212d4ba08d6e85a65854d22,
-        type: 3}
-      propertyPath: ShapeModule.type
-      value: 17
-      objectReference: {fileID: 0}
-    - target: {fileID: 198496400515357058, guid: c0aedbee0212d4ba08d6e85a65854d22,
-        type: 3}
-      propertyPath: ShapeModule.arc.mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 198496400515357058, guid: c0aedbee0212d4ba08d6e85a65854d22,
-        type: 3}
-      propertyPath: ShapeModule.donutRadius
-      value: 17.96
-      objectReference: {fileID: 0}
-    - target: {fileID: 198496400515357058, guid: c0aedbee0212d4ba08d6e85a65854d22,
-        type: 3}
-      propertyPath: ShapeModule.radius.value
-      value: 20.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 198496400515357058, guid: c0aedbee0212d4ba08d6e85a65854d22,
-        type: 3}
-      propertyPath: ShapeModule.radiusThickness
-      value: 0.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1429,10 +1341,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 927340605}
     m_Modifications:
-    - target: {fileID: 1256902366, guid: 5d1442ad8c11442988e0eca5d8af73f0, type: 3}
-      propertyPath: m_Mass
-      value: 102.41
-      objectReference: {fileID: 0}
     - target: {fileID: 1610884164528438, guid: 5d1442ad8c11442988e0eca5d8af73f0, type: 3}
       propertyPath: m_Name
       value: Neptune
@@ -1500,10 +1408,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 927340605}
     m_Modifications:
-    - target: {fileID: 2068760277, guid: 300f80108a63f48618cb4a1c8b8c1e86, type: 3}
-      propertyPath: m_Mass
-      value: 5.97
-      objectReference: {fileID: 0}
     - target: {fileID: 1733945558841920, guid: 300f80108a63f48618cb4a1c8b8c1e86, type: 3}
       propertyPath: m_Name
       value: Earth
@@ -1571,10 +1475,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 927340605}
     m_Modifications:
-    - target: {fileID: 1807301465, guid: 835acc1a9ebe24c0fa3854c99346f9cd, type: 3}
-      propertyPath: m_Mass
-      value: 4.8
-      objectReference: {fileID: 0}
     - target: {fileID: 1647581975099426, guid: 835acc1a9ebe24c0fa3854c99346f9cd, type: 3}
       propertyPath: m_Name
       value: Venus
@@ -1623,16 +1523,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 205720317299591224, guid: 835acc1a9ebe24c0fa3854c99346f9cd,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4182879556056083133, guid: 835acc1a9ebe24c0fa3854c99346f9cd,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1652,10 +1542,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 927340605}
     m_Modifications:
-    - target: {fileID: 239003106, guid: c91342f6e3afc48fd958056404ead345, type: 3}
-      propertyPath: m_Mass
-      value: 86.81
-      objectReference: {fileID: 0}
     - target: {fileID: 1014736895960144, guid: c91342f6e3afc48fd958056404ead345, type: 3}
       propertyPath: m_Name
       value: Uranus
@@ -1738,10 +1624,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 927340605}
     m_Modifications:
-    - target: {fileID: 1410391600, guid: 1818e1a170ef94c3aacee2ba50057521, type: 3}
-      propertyPath: m_Mass
-      value: 0.642
-      objectReference: {fileID: 0}
     - target: {fileID: 1288793558353234, guid: 1818e1a170ef94c3aacee2ba50057521, type: 3}
       propertyPath: m_Name
       value: Mars
