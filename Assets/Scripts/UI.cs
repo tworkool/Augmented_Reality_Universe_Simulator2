@@ -395,6 +395,18 @@ public class UI : MonoBehaviour
                         ResourcePath= "Assets/Planets of the Solar System 3D/Prefabs/Mars.prefab",
                         Name="Mars"
                     },
+                    new SpawnMenuFoldoutContentElement{
+                        ResourcePath= "Assets/Planets of the Solar System 3D/Prefabs/Earth.prefab",
+                        Name="Earth"
+                    },
+                    new SpawnMenuFoldoutContentElement{
+                        ResourcePath= "Assets/Planets of the Solar System 3D/Prefabs/Saturn.prefab",
+                        Name="Saturn"
+                    },
+                    new SpawnMenuFoldoutContentElement{
+                        ResourcePath= "Assets/Planets of the Solar System 3D/Prefabs/Neptune.prefab",
+                        Name="Neptune"
+                    },
                 }
             },
             { "Asteroids, Comets, Wharf Planets, Moons", new SpawnMenuFoldoutContentElement[]
