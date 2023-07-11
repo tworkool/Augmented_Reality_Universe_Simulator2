@@ -138,9 +138,10 @@ GameObject:
   - component: {fileID: 22732922}
   - component: {fileID: 22732921}
   - component: {fileID: 22732925}
+  - component: {fileID: 22732926}
   m_Layer: 0
   m_Name: AR Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -305,6 +306,22 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!114 &22732926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 22732919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2483d207e6596254fbbc1412368d4d39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainSpeed: 100
+  shiftAdd: 250
+  maxShift: 1000
+  camSens: 0.25
 --- !u!1 &68595267
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,7 +334,7 @@ GameObject:
   - component: {fileID: 68595268}
   m_Layer: 0
   m_Name: Universe
-  m_TagString: Untagged
+  m_TagString: CelestialBodyContainer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -336,7 +353,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   G: 0.01
   disableTrails: 1
-  massMultiplier: 0.1
+  massMultiplier: 0.01
   celestialBodies: []
 --- !u!4 &68595269
 Transform:
@@ -421,21 +438,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Sol
-      objectReference: {fileID: 0}
-    - target: {fileID: 2533600426880194860, guid: 24476150900860e4ba472cb4402b5e70,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2739542352623033962, guid: 24476150900860e4ba472cb4402b5e70,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8534135578770561820, guid: 24476150900860e4ba472cb4402b5e70,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -781,7 +783,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &826891032
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1083,6 +1085,7 @@ MonoBehaviour:
   approximateBodySpawnPath: 1
   hitIndicator: {fileID: 826891031}
   planetText: {fileID: 0}
+  spawnOffset: {x: 0, y: -0.5, z: 0}
 --- !u!114 &1234489095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1136,7 +1139,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6129853211727332443, guid: 12cf47a2e5652374bbaa2d1af80413f2, type: 3}
+  - {fileID: 2100000, guid: 901defe8a6671f24fb31ece30f6bd2c1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1157,12 +1160,10 @@ LineRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
+  m_Positions: []
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.01
+    widthMultiplier: 0.04
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -1189,7 +1190,7 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.009433985, g: 0.009433985, b: 0.009433985, a: 1}
+      key0: {r: 0, g: 0.58170426, b: 0.9716981, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}

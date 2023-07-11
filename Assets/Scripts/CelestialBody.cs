@@ -41,6 +41,7 @@ public class CelestialBody : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         ContactPoint collisionContactPoint = collision.GetContact(0);
+        //if (collisionContactPoint == null) return;
 
         GameObject smallerBody;
         GameObject largerBody;

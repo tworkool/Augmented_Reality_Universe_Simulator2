@@ -53,7 +53,7 @@ public class UI : MonoBehaviour
     private Camera camera;
     private Canvas canvas;
 
-    private Vector3 spawnOffset = new Vector3(0, -10, 0);
+    public Vector3 spawnOffset = new Vector3(0, -10, 0);
 
     private void OnEnable()
     {
@@ -97,7 +97,7 @@ public class UI : MonoBehaviour
         {
             DrawSpawnTrajectory();
         }
-        drawClosestObjectText();
+        //drawClosestObjectText();
     }
 
     private void drawClosestObjectText()

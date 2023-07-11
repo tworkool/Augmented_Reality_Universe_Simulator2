@@ -126,8 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   astronomicalUnitsFromSolarSystemCentre: 0
   orbit: {fileID: 0}
-  collisionParticleSystem: {fileID: 5519794315718459748, guid: fe009d42345c5d24fb9035fdb3b4aa99,
-    type: 3}
+  collisionParticleSystem: {fileID: 0}
 --- !u!54 &313537754627635863
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -364,7 +363,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 23
   m_RenderingLayerMask: 1
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
@@ -430,7 +429,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9134109307969260194
 Transform:
   m_ObjectHideFlags: 0
@@ -548,7 +547,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4788095363476739504
 Transform:
   m_ObjectHideFlags: 0
@@ -5376,7 +5375,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1942111472256879382
 Transform:
   m_ObjectHideFlags: 0
