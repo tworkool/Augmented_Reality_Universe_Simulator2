@@ -186,6 +186,13 @@ public class UI : MonoBehaviour
     {
         // instantiate as child of universe container
         GameObject child = Instantiate(tempSpawnObjectBuffer, universe.gameObject.transform);
+        if (universe.disableTrails) {
+            var lineRenderer = child.GetComponent<TrailRenderer>();
+            if (lineRenderer != null)
+            {
+                lineRenderer.enabled = false;
+            }
+        }
         Rigidbody childRigidBody = child.GetComponent<Rigidbody>();
         Vector3 cameraNormal = camera.transform.forward.normalized;
         cameraNormal *= spawnMenuVelocitySlider.value;

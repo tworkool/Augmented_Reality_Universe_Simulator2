@@ -45,7 +45,11 @@ public class CelestialBody : MonoBehaviour
 
         GameObject smallerBody;
         GameObject largerBody;
-        if (collisionContactPoint.thisCollider.attachedRigidbody.mass > collisionContactPoint.otherCollider.attachedRigidbody.mass)
+        Rigidbody thisRigidBody = collisionContactPoint.thisCollider.attachedRigidbody;
+        Rigidbody otherRigidBody = collisionContactPoint.otherCollider.attachedRigidbody;
+        if (collisionContactPoint.thisCollider.gameObject.layer == 5 || collisionContactPoint.otherCollider.gameObject.layer == 5) return;
+        if (thisRigidBody == null || otherRigidBody == null) return;
+        if (thisRigidBody.mass > otherRigidBody.mass)
         {
             smallerBody = collisionContactPoint.otherCollider.gameObject;
             largerBody = collisionContactPoint.thisCollider.gameObject;
