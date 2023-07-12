@@ -13,6 +13,8 @@ public class GestureInteractionController : MonoBehaviour
     private TextMeshProUGUI _targetNameLabelText;
     public GameObject TargetSpeedLabel;
     private TextMeshProUGUI _targetSpeedLabelText;
+    public GameObject TargetDistanceLabel;
+    private TextMeshProUGUI _targetDistanceLabelText;
     //private GameObject _targetDescriptionLabel;
 
     private bool HasHitData = false;
@@ -26,6 +28,7 @@ public class GestureInteractionController : MonoBehaviour
     {
         _targetNameLabelText = TargetNameLabel.GetComponent<TextMeshProUGUI>();
         _targetSpeedLabelText = TargetSpeedLabel.GetComponent<TextMeshProUGUI>();
+        _targetDistanceLabelText = TargetDistanceLabel.GetComponent<TextMeshProUGUI>();
     }
 
     private void Start()
@@ -46,6 +49,7 @@ public class GestureInteractionController : MonoBehaviour
         {
             _targetNameLabelText.text = $"{HitGameObject.name}";
             _targetSpeedLabelText.text = $"{(HitGameObjectRigidBody.velocity.magnitude).ToString("0.00")} km/s";
+            _targetDistanceLabelText.text = $"{Vector3.Distance(Camera.main.transform.position, HitGameObject.transform.position).ToString("0.00")} km";
         }
     }
 

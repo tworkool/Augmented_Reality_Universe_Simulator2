@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,6 +46,8 @@ public class UI : MonoBehaviour
     private Slider spawnMenuVelocitySlider;
     private VisualElement spawnMenuImageTrackerPositionContainer;
     private Toggle spawnMenuImageTrackerToggle;
+    private Button spawnMenuPos1Button;
+    private Button spawnMenuPos2Button;
 
     private LineRenderer trajectoryLineRenderer;
     private GameObject tempSpawnObjectBuffer;
@@ -54,6 +57,10 @@ public class UI : MonoBehaviour
     private ImageTargetController imageTargetController;
 
     public Vector3 spawnOffset = new Vector3(0, -0.5f, 0);
+
+    private Vector3? trackedImageTargetStartPos = null;
+    private Vector3? trackedImageTargetEndPos = null;
+    private Vector3? trackedImageTargetVeloctiy = null;
 
     private void Awake()
     {
@@ -77,6 +84,8 @@ public class UI : MonoBehaviour
         spawnMenuVelocitySlider = root.Q<Slider>("SpawnMenuVelocitySlider");
         spawnMenuImageTrackerPositionContainer = root.Q<VisualElement>("SpawnMenuPosContainer");
         spawnMenuImageTrackerToggle = root.Q<Toggle>("ImageTrackingToggle");
+        spawnMenuPos1Button = root.Q<Button>("SpawnMenuPos1Button");
+        spawnMenuPos2Button = root.Q<Button>("SpawnMenuPos2Button");
 
         timeActionButton.clicked += OnTimeActionButtonClicked;
         timeActionSlowerButton.clicked += OnTimeActionSlowerButtonClicked;
@@ -86,6 +95,8 @@ public class UI : MonoBehaviour
         spawnMenuCloseButton.clicked += OnSpawnMenuCloseButtonClicked;
         spawnMenuSpawnButton.clicked += OnSpawnMenuSpawnButtonClicked;
         spawnMenuImageTrackerToggle.RegisterValueChangedCallback(HandleImageTrackerToggleCallback);
+        spawnMenuPos1Button.clicked += OnSpawnMenuPos1ButtonClicked;
+        spawnMenuPos2Button.clicked += OnSpawnMenuPos2ButtonClicked;
 
         trajectoryLineRenderer = GetComponent<LineRenderer>();
         universe = GameObject.FindGameObjectWithTag("CelestialBodyContainer").GetComponent<Universe>();
@@ -100,7 +111,13 @@ public class UI : MonoBehaviour
         if (isImageTrackerSpawningSystemEnabled)
         {
             // spawn from image tracker target
-
+            if (approximateBodySpawnPath && tempSpawnObjectBuffer != null)
+            {
+                if (trackedImageTargetStartPos != null && trackedImageTargetVeloctiy != null)
+                {
+                    DrawSpawnTrajectory(trackedImageTargetStartPos, trackedImageTargetVeloctiy);
+                }
+            }
         } else
         {
             // spawn from camera
@@ -133,6 +150,22 @@ public class UI : MonoBehaviour
 
     #region Events
 
+    private void OnSpawnMenuPos1ButtonClicked()
+    {
+        trackedImageTargetStartPos = imageTargetController.TrackedImagePosition ?? null;
+        Debug.Log($"Start Pos: {trackedImageTargetStartPos}");
+        if (trackedImageTargetEndPos != null && trackedImageTargetStartPos != null)
+            trackedImageTargetVeloctiy = trackedImageTargetEndPos.Value - trackedImageTargetStartPos.Value;
+    }
+
+    private void OnSpawnMenuPos2ButtonClicked()
+    {
+        trackedImageTargetEndPos = imageTargetController.TrackedImagePosition ?? null;
+        Debug.Log($"End Pos: {trackedImageTargetEndPos}");
+        if (trackedImageTargetEndPos != null && trackedImageTargetStartPos != null)
+            trackedImageTargetVeloctiy = trackedImageTargetEndPos.Value - trackedImageTargetStartPos.Value;
+    }
+
     private void HandleImageTrackerToggleCallback(ChangeEvent<bool> e)
     {
         bool isImageTrackerSpawningSystemEnabled = spawnMenuImageTrackerToggle.value == true;
@@ -153,7 +186,7 @@ public class UI : MonoBehaviour
     private void OnSpawnMenuSpawnButtonClicked()
     {
         bool isImageTrackerSpawningSystemEnabled = spawnMenuImageTrackerToggle.value == true;
-        if (isImageTrackerSpawningSystemEnabled && imageTargetController.TrackedImagePosition == null) return;
+        if (isImageTrackerSpawningSystemEnabled && (trackedImageTargetStartPos == null || trackedImageTargetEndPos == null || trackedImageTargetVeloctiy == null)) return;
 
         // instantiate as child of universe container
         GameObject child = Instantiate(tempSpawnObjectBuffer, universe.gameObject.transform);
@@ -169,7 +202,8 @@ public class UI : MonoBehaviour
 
         if (isImageTrackerSpawningSystemEnabled)
         {
-            child.transform.position = imageTargetController.TrackedImagePosition.Value;
+            child.transform.position = trackedImageTargetStartPos.Value;
+            childRigidBody.velocity += trackedImageTargetVeloctiy.Value;
         }
         else
         {
@@ -206,6 +240,9 @@ public class UI : MonoBehaviour
         tempSpawnObjectBuffer = null;
         trajectoryLineRenderer.positionCount = 0;
         imageTargetController.Disable();
+        trackedImageTargetStartPos = null;
+        trackedImageTargetEndPos = null;
+        trackedImageTargetVeloctiy = null;
     }
 
     private void OnSpawnMenuModalCloseButtonClicked()
@@ -285,14 +322,14 @@ public class UI : MonoBehaviour
         public string Name;
     }
 
-    private void DrawSpawnTrajectory()
+    private void DrawSpawnTrajectory(Vector3? initialPosition = null, Vector3? initialVelocity = null)
     {
         if (tempSpawnObjectBuffer == null) return;
 
         //float stepTime = Time.timeScale;
         float stepTime = 0.05f;
-        Vector3 initialPosition = camera.transform.position + spawnOffset;
-        Vector3 initialVelocity = camera.transform.forward.normalized * spawnMenuVelocitySlider.value;
+        if (initialPosition == null) initialPosition = camera.transform.position + spawnOffset;
+        if (initialVelocity == null) initialVelocity  = camera.transform.forward.normalized * spawnMenuVelocitySlider.value;
         float mass = tempSpawnObjectBuffer.GetComponent<Rigidbody>().mass;
         float radius = tempSpawnObjectBuffer.GetComponent<SphereCollider>().radius * Mathf.Max(tempSpawnObjectBuffer.transform.lossyScale.x, tempSpawnObjectBuffer.transform.lossyScale.y, tempSpawnObjectBuffer.transform.lossyScale.z);
         Vector3? hitPos = null;
@@ -300,8 +337,8 @@ public class UI : MonoBehaviour
         var trajectoryPoints = universe.SimulateNextGravitySteps(
             lineSegments, 
             stepTime, 
-            initialPosition, 
-            initialVelocity, 
+            initialPosition.Value, 
+            initialVelocity.Value, 
             mass,
             radius,
             out hitPos

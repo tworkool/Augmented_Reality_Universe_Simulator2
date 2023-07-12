@@ -36,6 +36,7 @@ public class ImageTargetController : MonoBehaviour
 
         foreach (var trackedImage in args.updated)
         {
+            Debug.Log($"Tracked State updated: {trackedImage.trackingState}");
             if (trackedImage.trackingState == UnityEngine.XR.ARSubsystems.TrackingState.Tracking)
             {
                 TrackedImagePosition = trackedImage.gameObject.transform.position;
