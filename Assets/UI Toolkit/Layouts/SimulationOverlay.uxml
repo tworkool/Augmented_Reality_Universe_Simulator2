@@ -7,7 +7,7 @@
         <ui:Toggle label="Time Max" style="color: rgb(255, 255, 255);" />
         <ui:Toggle label="Time Min" style="color: rgb(255, 255, 255);" />
     </ui:IMGUIContainer>
-    <ui:VisualElement name="Crosshair" style="flex-grow: 1; align-items: center; justify-content: center;">
+    <ui:VisualElement name="Crosshair" style="flex-grow: 1; align-items: center; justify-content: center; overflow: visible; display: none;">
         <ui:VisualElement style="align-items: auto; justify-content: flex-start; background-image: url(&apos;project://database/Assets/Sherbbs%20Particle%20Collection/Textures/MediumCircleMask.png?fileID=2800000&amp;guid=37b6eb5a28f100f489ea7e7a1555b76a&amp;type=3#MediumCircleMask&apos;); width: 20px; height: 20px; -unity-background-image-tint-color: rgb(255, 255, 255); background-color: rgba(0, 0, 0, 0);" />
     </ui:VisualElement>
     <ui:VisualElement name="DefaultMenu" style="flex-grow: 0; position: absolute; left: 0; top: 0; right: 0; bottom: 0; display: flex;">

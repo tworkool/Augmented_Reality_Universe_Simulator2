@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,10 +14,12 @@ public class GestureInteractionController : MonoBehaviour
     private TextMeshProUGUI _targetSpeedLabelText;
     //private GameObject _targetDescriptionLabel;
 
-    private Vector3 screenCenter = new Vector3(0.5f, 0.5f, 0);
     private bool HasHitData = false;
     private GameObject HitGameObject;
     private Rigidbody HitGameObjectRigidBody;
+
+    [Tooltip("Whether the center of the screen or the touch position should be used as a root for the ray")]
+    public bool UseScreenCenterSelection = false;
 
     private void Awake()
     {
@@ -34,7 +37,8 @@ public class GestureInteractionController : MonoBehaviour
 #if UNITY_EDITOR
         if (Input.GetMouseButtonDown(0))
         {
-            ShootRay();
+            Vector3 viewportPosition = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+            ShootRay(viewportPosition);
         }
 #endif
         if (HasHitData)
@@ -44,9 +48,14 @@ public class GestureInteractionController : MonoBehaviour
         }
     }
 
-    void ShootRay()
+    void ShootRay(Vector3? screenPos = null)
     {
-        Ray ray = Camera.main.ViewportPointToRay(screenCenter);
+        if (screenPos == null || UseScreenCenterSelection)
+        {
+            // use center pos
+            screenPos = new Vector3(0.5f, 0.5f, 0);
+        }
+        Ray ray = Camera.main.ViewportPointToRay(screenPos.Value);
         RaycastHit hitData;
         Debug.DrawRay(ray.origin, ray.direction * 9999);
 
@@ -85,7 +94,8 @@ public class GestureInteractionController : MonoBehaviour
     {
         if (finger.index != 0) return;
 
-        ShootRay();
+        Vector3 viewportPosition = Camera.main.ScreenToViewportPoint(finger.screenPosition);
+        ShootRay(viewportPosition);
     }
 #endif
 
