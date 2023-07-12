@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -44,7 +45,7 @@ public class GestureInteractionController : MonoBehaviour
         if (HasHitData)
         {
             _targetNameLabelText.text = $"{HitGameObject.name}";
-            _targetSpeedLabelText.text = $"{Mathf.RoundToInt(HitGameObjectRigidBody.velocity.magnitude)} km/s";
+            _targetSpeedLabelText.text = $"{(HitGameObjectRigidBody.velocity.magnitude).ToString("0.00")} km/s";
         }
     }
 

@@ -28,8 +28,6 @@ public class UI : MonoBehaviour
     private bool approximateBodySpawnPath = true;
     [SerializeField]
     public GameObject hitIndicator;
-    [SerializeField]
-    public GameObject planetText;
 
 
     private Label timeLabel;
@@ -45,21 +43,24 @@ public class UI : MonoBehaviour
     private Button spawnMenuCloseButton;
     private Button spawnMenuSpawnButton;
     private Slider spawnMenuVelocitySlider;
+    private VisualElement spawnMenuImageTrackerPositionContainer;
+    private Toggle spawnMenuImageTrackerToggle;
 
     private LineRenderer trajectoryLineRenderer;
     private GameObject tempSpawnObjectBuffer;
 
     private Universe universe;
     private Camera camera;
-    private Canvas canvas;
+    private ImageTargetController imageTargetController;
 
-    public Vector3 spawnOffset = new Vector3(0, -10, 0);
+    public Vector3 spawnOffset = new Vector3(0, -0.5f, 0);
 
-    private void OnEnable()
+    private void Awake()
     {
         lastTimeScale = Time.timeScale;
 
         VisualElement root = GetComponent<UIDocument>().rootVisualElement;
+        imageTargetController = GameObject.Find("AR Session Origin").GetComponent<ImageTargetController>();
 
         timeLabel = root.Q<Label>("TimeLabel");
         timeActionButton = root.Q<Button>("TimeActionButton");
@@ -74,6 +75,8 @@ public class UI : MonoBehaviour
         spawnMenuCloseButton = root.Q<Button>("SpawnMenuCloseButton");
         spawnMenuSpawnButton = root.Q<Button>("SpawnMenuSpawnButton");
         spawnMenuVelocitySlider = root.Q<Slider>("SpawnMenuVelocitySlider");
+        spawnMenuImageTrackerPositionContainer = root.Q<VisualElement>("SpawnMenuPosContainer");
+        spawnMenuImageTrackerToggle = root.Q<Toggle>("ImageTrackingToggle");
 
         timeActionButton.clicked += OnTimeActionButtonClicked;
         timeActionSlowerButton.clicked += OnTimeActionSlowerButtonClicked;
@@ -82,82 +85,30 @@ public class UI : MonoBehaviour
         spawnMenuModalCloseButton.clicked += OnSpawnMenuModalCloseButtonClicked;
         spawnMenuCloseButton.clicked += OnSpawnMenuCloseButtonClicked;
         spawnMenuSpawnButton.clicked += OnSpawnMenuSpawnButtonClicked;
-
-        Init();
+        spawnMenuImageTrackerToggle.RegisterValueChangedCallback(HandleImageTrackerToggleCallback);
 
         trajectoryLineRenderer = GetComponent<LineRenderer>();
         universe = GameObject.FindGameObjectWithTag("CelestialBodyContainer").GetComponent<Universe>();
-        camera = Camera.main; //camera = GameObject.FindGameObjectWithTag("MainCamera");
-        canvas = GameObject.FindObjectOfType<Canvas>();
+        camera = Camera.main;
+
+        Init();
     }
 
     private void Update()
     {
-        if (approximateBodySpawnPath && tempSpawnObjectBuffer != null)
+        bool isImageTrackerSpawningSystemEnabled = spawnMenuImageTrackerToggle.value == true;
+        if (isImageTrackerSpawningSystemEnabled)
         {
-            DrawSpawnTrajectory();
-        }
-        //drawClosestObjectText();
-    }
+            // spawn from image tracker target
 
-    private void drawClosestObjectText()
-    {
-        var screenCenter = new Vector3(0.5f, 0.5f, 0);
-        Ray ray = Camera.main.ViewportPointToRay(screenCenter);
-        RaycastHit hitData;
-        Debug.DrawRay(ray.origin, ray.direction * 9999);
-        if (Physics.Raycast(ray, out hitData) && hitData.collider.CompareTag("CelestialBody"))
-        {
-            planetText.SetActive(true);
-
-            //this is the ui element
-            RectTransform UI_Element = planetText.GetComponent<RectTransform>();
-            Rigidbody rb = hitData.transform.gameObject.GetComponent<Rigidbody>();
-            planetText.GetComponent<TextMeshProUGUI>().text = $"{hitData.transform.gameObject.name} {Mathf.RoundToInt(rb.velocity.magnitude)} km/s";
-
-            //first you need the RectTransform component of your canvas
-            RectTransform CanvasRect = canvas.GetComponent<RectTransform>();
-
-            //then you calculate the position of the UI element
-            //0,0 for the canvas is at the center of the screen, whereas WorldToViewPortPoint treats the lower left corner as 0,0. Because of this, you need to subtract the height / width of the canvas * 0.5 to get the correct position.
-            Vector3 ViewportPosition = camera.WorldToViewportPoint(hitData.transform.position);
-            Vector3 WorldObject_ScreenPosition = new Vector3(
-            ((ViewportPosition.x * CanvasRect.sizeDelta.x) - (CanvasRect.sizeDelta.x * 0.5f)),
-            ((ViewportPosition.y * CanvasRect.sizeDelta.y) - (CanvasRect.sizeDelta.y * 0.5f)),
-            (0));
-
-            //now you can set the position of the ui element
-            UI_Element.anchoredPosition3D = WorldObject_ScreenPosition;
         } else
         {
-            planetText.SetActive(false);
+            // spawn from camera
+            if (approximateBodySpawnPath && tempSpawnObjectBuffer != null)
+            {
+                DrawSpawnTrajectory();
+            }
         }
-
-        //var closestObj = universe.celestialBodies.OrderBy(
-        //    obj =>
-        //    {
-        //        var targetDir = obj.transform.position - camera.transform.position;
-        //        var angleBetween = Vector3.Angle(camera.transform.forward, targetDir);
-        //        if (angleBetween < 90)
-        //        {
-        //            // Object is in front of the camera
-        //            return (camera.WorldToViewportPoint(obj.transform.position) - screenCenter).sqrMagnitude;
-        //        } else
-        //        {
-        //            return float.MaxValue;
-        //        }
-        //    }
-        //    ).First();
-        //Debug.Log(closestObj);
-
-        //if (closestObj != null)
-        //{
-        //    planetText.transform.position = closestObj.transform.position;
-        //    planetText.SetActive(true);
-        //} else
-        //{
-        //    planetText.SetActive(false);
-        //}
     }
 
     #region Helpers
@@ -182,11 +133,32 @@ public class UI : MonoBehaviour
 
     #region Events
 
+    private void HandleImageTrackerToggleCallback(ChangeEvent<bool> e)
+    {
+        bool isImageTrackerSpawningSystemEnabled = spawnMenuImageTrackerToggle.value == true;
+        if (isImageTrackerSpawningSystemEnabled)
+        {
+            spawnMenuImageTrackerPositionContainer.style.display = DisplayStyle.Flex;
+            spawnMenuVelocitySlider.style.display = DisplayStyle.None;
+            trajectoryLineRenderer.positionCount = 0;
+            imageTargetController.Enable();
+        } else
+        {
+            spawnMenuImageTrackerPositionContainer.style.display = DisplayStyle.None;
+            spawnMenuVelocitySlider.style.display = DisplayStyle.Flex;
+            imageTargetController.Disable();
+        }
+    }
+
     private void OnSpawnMenuSpawnButtonClicked()
     {
+        bool isImageTrackerSpawningSystemEnabled = spawnMenuImageTrackerToggle.value == true;
+        if (isImageTrackerSpawningSystemEnabled && imageTargetController.TrackedImagePosition == null) return;
+
         // instantiate as child of universe container
         GameObject child = Instantiate(tempSpawnObjectBuffer, universe.gameObject.transform);
-        if (universe.disableTrails) {
+        if (universe.disableTrails)
+        {
             var lineRenderer = child.GetComponent<TrailRenderer>();
             if (lineRenderer != null)
             {
@@ -194,11 +166,19 @@ public class UI : MonoBehaviour
             }
         }
         Rigidbody childRigidBody = child.GetComponent<Rigidbody>();
-        Vector3 cameraNormal = camera.transform.forward.normalized;
-        cameraNormal *= spawnMenuVelocitySlider.value;
-        childRigidBody.velocity += cameraNormal;
-        //childRigidBody.mass = 99999999;
-        child.transform.position = camera.transform.position + spawnOffset;
+
+        if (isImageTrackerSpawningSystemEnabled)
+        {
+            child.transform.position = imageTargetController.TrackedImagePosition.Value;
+        }
+        else
+        {
+            Vector3 cameraNormal = camera.transform.forward.normalized;
+            cameraNormal *= spawnMenuVelocitySlider.value;
+            childRigidBody.velocity += cameraNormal;
+            //childRigidBody.mass = 99999999;
+            child.transform.position = camera.transform.position + spawnOffset;
+        }
     }
 
     void OnAsyncOperationHandleCompleted(AsyncOperationHandle<GameObject> asyncOperationHandle)
@@ -225,6 +205,7 @@ public class UI : MonoBehaviour
         defaultMenu.visible = true;
         tempSpawnObjectBuffer = null;
         trajectoryLineRenderer.positionCount = 0;
+        imageTargetController.Disable();
     }
 
     private void OnSpawnMenuModalCloseButtonClicked()
@@ -304,30 +285,6 @@ public class UI : MonoBehaviour
         public string Name;
     }
 
-    //private void DrawSpawnTrajectory()
-    //{
-    //    float stepTime = Time.timeScale;
-    //    float delta = Time.fixedDeltaTime;
-
-    //    Vector3 initialPosition = camera.transform.position + spawnOffset;
-    //    Vector3 initialVelocity = camera.transform.forward.normalized * spawnMenuVelocitySlider.value;
-    //    float mass = tempSpawnObjectBuffer.GetComponent<Rigidbody>().mass;
-
-    //    Vector3 currentPosition = initialPosition;
-    //    Vector3 currentVelocity = initialVelocity;
-    //    var trajectoryPoints = new List<Vector3>();
-    //    for (int i = 0; i < lineSegments; i++)
-    //    {
-    //        float stepTimePassed = stepTime * i;
-    //        trajectoryPoints.Add(currentPosition);
-    //        currentVelocity += universe.CalculateNextBodyVelocity(mass, initialPosition) * stepTime / mass;
-    //        currentPosition += currentVelocity * stepTime;
-    //    }
-
-    //    trajectoryLineRenderer.positionCount = trajectoryPoints.Count();
-    //    trajectoryLineRenderer.SetPositions(trajectoryPoints.ToArray());
-    //}
-
     private void DrawSpawnTrajectory()
     {
         if (tempSpawnObjectBuffer == null) return;
@@ -371,6 +328,8 @@ public class UI : MonoBehaviour
         spawnMenu.visible = false;
 
         InitSpawnMenuFoldoutContent();
+
+        imageTargetController.Disable();
     }
 
     private void InitSpawnMenuFoldoutContent()
