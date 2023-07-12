@@ -209,8 +209,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 816b289ef451e094f9ae174fb4cf8db0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UseCustomMaterial: 0
-  m_CustomMaterial: {fileID: 0}
+  m_UseCustomMaterial: 1
+  m_CustomMaterial: {fileID: 2100000, guid: bdeec79b36ef67e468c7a8045d6f388b, type: 2}
 --- !u!114 &22732922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2096,9 +2096,9 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.15
-  m_Range: 5
+  m_Color: {r: 1, g: 1, b: 1, a: 0.3529412}
+  m_Intensity: 0.05
+  m_Range: 2
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
