@@ -821,7 +821,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -279.5667, w: 0}
+  m_margin: {x: 0, y: 0, z: -687.6989, w: -62.48555}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1302,7 +1302,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -279.2921, w: 0}
+  m_margin: {x: 0, y: 0, z: -639.6889, w: -48.474503}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1473,6 +1473,7 @@ MonoBehaviour:
   lineSegments: 26
   approximateBodySpawnPath: 1
   hitIndicator: {fileID: 826891031}
+  trackedImageTargetVeloctiyMultiplier: 5
   spawnOffset: {x: 0, y: -0.5, z: 0}
 --- !u!114 &1234489095
 MonoBehaviour:
@@ -1793,7 +1794,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -279.2921, w: 0}
+  m_margin: {x: 0, y: 0, z: -590.4308, w: -86.28395}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

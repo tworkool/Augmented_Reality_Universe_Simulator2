@@ -29,6 +29,7 @@ public class UI : MonoBehaviour
     private bool approximateBodySpawnPath = true;
     [SerializeField]
     public GameObject hitIndicator;
+    public float trackedImageTargetVeloctiyMultiplier = 5;
 
 
     private Label timeLabel;
@@ -115,10 +116,11 @@ public class UI : MonoBehaviour
             {
                 if (trackedImageTargetStartPos != null && trackedImageTargetVeloctiy != null)
                 {
-                    DrawSpawnTrajectory(trackedImageTargetStartPos, trackedImageTargetVeloctiy);
+                    DrawSpawnTrajectory(trackedImageTargetStartPos, trackedImageTargetVeloctiy * trackedImageTargetVeloctiyMultiplier);
                 }
             }
-        } else
+        }
+        else
         {
             // spawn from camera
             if (approximateBodySpawnPath && tempSpawnObjectBuffer != null)
@@ -175,7 +177,8 @@ public class UI : MonoBehaviour
             spawnMenuVelocitySlider.style.display = DisplayStyle.None;
             trajectoryLineRenderer.positionCount = 0;
             imageTargetController.Enable();
-        } else
+        }
+        else
         {
             spawnMenuImageTrackerPositionContainer.style.display = DisplayStyle.None;
             spawnMenuVelocitySlider.style.display = DisplayStyle.Flex;
@@ -203,7 +206,7 @@ public class UI : MonoBehaviour
         if (isImageTrackerSpawningSystemEnabled)
         {
             child.transform.position = trackedImageTargetStartPos.Value;
-            childRigidBody.velocity += trackedImageTargetVeloctiy.Value;
+            childRigidBody.velocity += trackedImageTargetVeloctiy.Value * trackedImageTargetVeloctiyMultiplier;
         }
         else
         {
@@ -227,7 +230,8 @@ public class UI : MonoBehaviour
             }
             tempSpawnObjectBuffer = result;
             Debug.Log("Loaded temp spawn object into buffer");
-        } else
+        }
+        else
         {
             Debug.LogError("Could not load addressable object");
         }
@@ -329,16 +333,16 @@ public class UI : MonoBehaviour
         //float stepTime = Time.timeScale;
         float stepTime = 0.05f;
         if (initialPosition == null) initialPosition = camera.transform.position + spawnOffset;
-        if (initialVelocity == null) initialVelocity  = camera.transform.forward.normalized * spawnMenuVelocitySlider.value;
+        if (initialVelocity == null) initialVelocity = camera.transform.forward.normalized * spawnMenuVelocitySlider.value;
         float mass = tempSpawnObjectBuffer.GetComponent<Rigidbody>().mass;
         float radius = tempSpawnObjectBuffer.GetComponent<SphereCollider>().radius * Mathf.Max(tempSpawnObjectBuffer.transform.lossyScale.x, tempSpawnObjectBuffer.transform.lossyScale.y, tempSpawnObjectBuffer.transform.lossyScale.z);
         Vector3? hitPos = null;
 
         var trajectoryPoints = universe.SimulateNextGravitySteps(
-            lineSegments, 
-            stepTime, 
-            initialPosition.Value, 
-            initialVelocity.Value, 
+            lineSegments,
+            stepTime,
+            initialPosition.Value,
+            initialVelocity.Value,
             mass,
             radius,
             out hitPos
